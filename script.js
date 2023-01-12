@@ -46,6 +46,32 @@ const gameOver = (status) => {
 	}
 	currentlyPlaying = false;
 };
+const playDoor = (door) => {
+	numClosedDoors -= 1;
+	if (numClosedDoors === 0) {
+		gameOver("win");
+	} else if (isBot(door)) {
+		gameOver();
+	}
+};
+const randomChoreDoorGenerator = () => {
+	let choreDoor = Math.floor(
+		Math.random() * numClosedDoors
+	);
+	if (choreDoor === 0) {
+		openDoor1 = botDoorPath;
+		openDoor2 = beachDoorPath;
+		openDoor3 = spaceDoorPath;
+	} else if (choreDoor === 1) {
+		openDoor1 = beachDoorPath;
+		openDoor2 = botDoorPath;
+		openDoor3 = spaceDoorPath;
+	} else {
+		openDoor1 = beachDoorPath;
+		openDoor2 = spaceDoorPath;
+		openDoor3 = botDoorPath;
+	}
+};
 
 doorImage1.onclick = () => {
 	if (currentlyPlaying && isClicked(doorImage1)) {
